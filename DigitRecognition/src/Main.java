@@ -8,6 +8,8 @@ public class Main {
 		
 		Testing te = new Testing(tr);
 		te.testData();
+		te.printResults();
+		System.out.println("DONE");
 	}
 
 }
