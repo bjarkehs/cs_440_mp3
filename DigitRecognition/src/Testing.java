@@ -150,4 +150,52 @@ public class Testing {
 			}
 		}
 	}
+
+	
+	public void getOddsRatio(int label1, int label2) {
+		Digit d1 = training.trainingData.get(label1);
+		Digit d2 = training.trainingData.get(label2);
+		
+		for (int i = 0; i < 28; i++) {
+			for (int j = 0; j < 28; j++) {
+				double df1 = getProbabilityOfFeature(d1.black[i][j], d1.samples);
+				double df2 = getProbabilityOfFeature(d2.black[i][j], d2.samples);
+				double result = df1/df2;
+//				System.out.println("df1 : " + df1);
+//				System.out.println("df2 : " + df2);
+//				System.out.println("Result: " + result);
+				char print;
+				if (result > 0.99 && result < 1.01) {
+					print = '+';
+				} else if (result > 0) {
+					print = ' ';
+				} else {
+					print = '-';
+				}
+				System.out.print(print);
+			}
+			System.out.println();
+		}
+	}
+	
+	public void printLikelyhood(int label) {
+		Digit d = training.trainingData.get(label);
+		for (int i = 0; i < 28; i++) {
+			for (int j = 0; j < 28; j++) {
+				double black = getProbabilityOfFeature(d.black[i][j], d.samples);
+				double white = getProbabilityOfFeature(d.samples-d.black[i][j], d.samples);
+				double result = black/white;
+				char print;
+				if (result > 0.95 && result < 1.05) {
+					print = ' ';
+				} else if (result > 0) {
+					print = '+';
+				} else {
+					print = '-';
+				}
+				System.out.print(print);
+			}
+			System.out.println();
+		}
+	}
 }

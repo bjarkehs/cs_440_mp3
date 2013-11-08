@@ -10,6 +10,7 @@ public class Main {
 		te.testData();
 		te.printResults();
 		System.out.println("DONE");
+		te.printLikelyhood(1);
 	}
 
 }

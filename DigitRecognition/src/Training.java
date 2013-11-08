@@ -61,5 +61,5 @@ public class Training {
 				System.out.println();
 			}
 		}
-	}
+	}	
 }
