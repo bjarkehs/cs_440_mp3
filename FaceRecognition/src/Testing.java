@@ -156,7 +156,7 @@ public class Testing {
 		System.out.println();
 	}
 	
-	public double[][] getOddsRatioMatrix(int label1, int label2) {
+	public double[][] getOddsRatio(int label1, int label2) {
 		Face f1 = training.trainingData.get(label1);
 		Face f2 = training.trainingData.get(label2);
 		
@@ -176,7 +176,7 @@ public class Testing {
 	}
 
 	
-	public void getOddsRatio(int label1, int label2) {
+	public void printOddsRatio(int label1, int label2) {
 		System.out.println("log odds ratio for "+label1+" over "+label2);
 		Face f1 = training.trainingData.get(label1);
 		Face f2 = training.trainingData.get(label2);
@@ -223,5 +223,23 @@ public class Testing {
 			System.out.println();
 		}
 		System.out.println();
+	}
+	
+	public double[][] getLikelyhood(int label) {
+		Face f = training.trainingData.get(label);
+		
+		double[][] returnMatrix = new double[28][28];
+		double feature;
+		double white;
+		double result;
+		for (int i = 0; i < 70; i++) {
+			for (int j = 0; j < 60; j++) {
+				feature = getProbabilityOfFeature(f.feature[i][j], f.samples);
+				white = getProbabilityOfFeature(f.samples-f.feature[i][j], f.samples);
+				result = feature - white;
+				returnMatrix[i][j] = result;
+			}
+		}
+		return returnMatrix;
 	}
 }

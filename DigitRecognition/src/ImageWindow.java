@@ -61,11 +61,11 @@ public class ImageWindow {
                         RenderingHints.KEY_INTERPOLATION,
                         RenderingHints.VALUE_INTERPOLATION_BILINEAR);
                         // Or _BICUBIC
-                g2d.scale(5, 5);
+                g2d.scale(10, 10);
                 g2d.drawImage(img, 0, 0, this);
             }
         };
-        panel.setPreferredSize(new Dimension(width*5, height*5));
+        panel.setPreferredSize(new Dimension(width*10, height*10));
         frame.getContentPane().add(panel);
         frame.pack();
         frame.setVisible(true);

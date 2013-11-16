@@ -10,9 +10,13 @@ public class Main {
 		te.testData();
 		te.printResults();
 		
-		te.printLikelyhood(4);
-		te.printLikelyhood(9);
-		te.getOddsRatio(4,9);
+		ImageWindow i = new ImageWindow();
+		i.printImage(te.getLikelyhood(1));
+		i.printImage(te.getLikelyhood(8));
+		i.printImage(te.getOddsRatio(1, 8));
+//		te.printLikelyhood(4);
+//		te.printLikelyhood(9);
+//		te.printOddsRatio(4,9);
 		
 		System.out.println("DONE");
 	}
