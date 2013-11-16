@@ -5,11 +5,10 @@ import java.io.FileReader;
 
 public class Testing {
 	public int totalTests;
-	public int correctTests;
 	public int[][] hitMatrix;
 	public double[][] confusionMatrix;
 	public Training training;
-	private int k = 10;
+	private int k = 1;
 	
 	public Testing(Training t) {
 		training = t;
@@ -58,12 +57,7 @@ public class Testing {
 						d.highestProbability = maxProbability;
 					}
 					if (d.label == maxDigitLabel) {
-						correctTests++;
-					} else {
-//						System.out.println("WRONG GUESS: ");
-//						printDigit(testImage);
-//						System.out.println("Guessed: " + maxDigitLabel);
-//						System.out.println("Was: " + d.label);
+						d.correctTests++;
 					}
 					hitMatrix[d.label][maxDigitLabel]++;
 				}
@@ -85,7 +79,7 @@ public class Testing {
 		total += getProbabilityOfFeature(d.samples,training.totalSamples);
 		for (int i = 0; i < 28; i++) {
 			for (int j = 0; j < 28; j++) {
-				int numberOfOccurences = d.black[i][j];
+				int numberOfOccurences = d.feature[i][j];
 				if (testImage[i][j] == 0) {
 					numberOfOccurences = d.samples - numberOfOccurences;
 				}
@@ -99,25 +93,35 @@ public class Testing {
 		return Math.log((a+k)/(b*k));
 	}
 	
-	public void printDigit(int[][] image) {
-		for (int i = 0; i < 28; i++) {
-			for (int m = 0; m < 28; m++) {
-				System.out.print(image[i][m]);
-			}
-			System.out.println();
-		}
-	}
+//	public void printDigit(int[][] image) {
+//		for (int i = 0; i < 28; i++) {
+//			for (int m = 0; m < 28; m++) {
+//				System.out.print(image[i][m]);
+//			}
+//			System.out.println();
+//		}
+//	}
 	
 	public void printResults() {
-		System.out.println("Printing most probable images: ");
+		double totalCorrect = 0;
+		double eachCorrect;
 		for (Digit d : training.trainingData) {
-			System.out.println("Digit: " + d.label + " with a probability: "+ d.highestProbability);
-			d.printImage();
+			//System.out.println("tests for "+d.label+" :"+d.tests);
+			eachCorrect = d.correctTests;
+			totalCorrect += eachCorrect;
+			eachCorrect = ((double)eachCorrect/(double)d.tests)*100;
+			System.out.println("Classification rate for "+d.label+" is: "+eachCorrect+"%");
+			//System.out.println("Test example with highest posterior probability is:");
+			//d.printHighestImage();
+			System.out.println();
 		}
-		System.out.println("Printing the confusion matrix:");
+		//System.out.println("Total tests: "+totalTests);
+		totalCorrect = ((double)totalCorrect/(double)totalTests)*100;
+		System.out.println("Total performance is: "+totalCorrect+"%");
+		
+		System.out.println();
+		System.out.println("Confusion matrix is:");
 		printMatrix(confusionMatrix);
-		double correct = ((double)correctTests/(double)totalTests)*100;
-		System.out.println("Percentage of correct guesses: " + correct +"%");
 	}
 	
 	public void printMatrix(double[][] matrix) {
@@ -140,32 +144,32 @@ public class Testing {
 	}
 	
 	public void calculateConfusionMatrix() {
-		for (int i = 0; i < 10; i++) {
-			int total = 0;
-			for (int j = 0; j < 10; j++) {
-				total += hitMatrix[i][j];
+		for (int r = 0; r < 10; r++) {
+			//int t = 0;
+			for (int c = 0; c < 10; c++) {
+				Digit d = training.trainingData.get(c);
+				confusionMatrix[r][c] = ((double)hitMatrix[r][c]/(double)d.tests)*100;
+				//t += hitMatrix[r][c];
 			}
-			for (int j = 0; j < 10; j++) {
-				confusionMatrix[i][j] = (double)hitMatrix[i][j]/(double)total*100;
-			}
+			//System.out.println("For digit "+r+" total tests: "+t);
 		}
+		System.out.println();
 	}
 
 	
 	public void getOddsRatio(int label1, int label2) {
+		System.out.println("log odds ratio for "+label1+" over "+label2);
 		Digit d1 = training.trainingData.get(label1);
 		Digit d2 = training.trainingData.get(label2);
 		
 		for (int i = 0; i < 28; i++) {
 			for (int j = 0; j < 28; j++) {
-				double df1 = getProbabilityOfFeature(d1.black[i][j], d1.samples);
-				double df2 = getProbabilityOfFeature(d2.black[i][j], d2.samples);
-				double result = df1/df2;
-//				System.out.println("df1 : " + df1);
-//				System.out.println("df2 : " + df2);
-//				System.out.println("Result: " + result);
+				double df1 = getProbabilityOfFeature(d1.feature[i][j], d1.samples);
+				double df2 = getProbabilityOfFeature(d2.feature[i][j], d2.samples);
+				double result = df1 - df2;
+				//System.out.println(result);
 				char print;
-				if (result > 0.99 && result < 1.01) {
+				if (result > 0.9 && result < 1.1) {
 					print = '+';
 				} else if (result > 0) {
 					print = ' ';
@@ -176,17 +180,19 @@ public class Testing {
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
 	
 	public void printLikelyhood(int label) {
+		System.out.println("Likelyhood map for "+label);
 		Digit d = training.trainingData.get(label);
 		for (int i = 0; i < 28; i++) {
 			for (int j = 0; j < 28; j++) {
-				double black = getProbabilityOfFeature(d.black[i][j], d.samples);
-				double white = getProbabilityOfFeature(d.samples-d.black[i][j], d.samples);
-				double result = black/white;
+				double feature = getProbabilityOfFeature(d.feature[i][j], d.samples);
+				double white = getProbabilityOfFeature(d.samples-d.feature[i][j], d.samples);
+				double result = feature - white;
 				char print;
-				if (result > 0.95 && result < 1.05) {
+				if (result > 0.9 && result < 1.1) {
 					print = ' ';
 				} else if (result > 0) {
 					print = '+';
@@ -197,5 +203,6 @@ public class Testing {
 			}
 			System.out.println();
 		}
+		System.out.println();
 	}
 }

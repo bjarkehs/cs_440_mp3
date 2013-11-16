@@ -35,7 +35,7 @@ public class Training {
 				}
 				for (int j = 0; j < 28; j++) {
 					if (line.charAt(j) != ' ') {
-						d.black[k][j]++;
+						d.feature[k][j]++;
 					}
 				}
 				k = (k+1) % 28;
@@ -55,7 +55,7 @@ public class Training {
 			System.out.println("Label of digits: "+ d.label);
 			for (int i = 0; i < 28; i++) {
 				for (int j = 0; j < 28; j++) {
-	            	niceOutput = String.format("%1$3s", d.black[i][j]);
+	            	niceOutput = String.format("%1$3s", d.feature[i][j]);
 	                System.out.print(niceOutput);
 				}
 				System.out.println();
