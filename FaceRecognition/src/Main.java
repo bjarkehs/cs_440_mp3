@@ -2,7 +2,7 @@
 public class Main {
 
 	public static void main(String[] args) {
-		ImageTest i = new ImageTest();
+		ImageWindow i = new ImageWindow();
 		
 		Training tr = new Training();
 		tr.trainData();
@@ -10,7 +10,7 @@ public class Main {
 		
 		Testing te = new Testing(tr);
 		te.testData();
-//		te.printResults();
+		te.printResults();
 		
 		i.printImage(te.getOddsRatioMatrix(0,1));
 //		te.printLikelyhood(0);

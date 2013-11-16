@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class ImageTest {
+public class ImageWindow {
     public void printImage(double[][] matrix) {
     	int height = matrix.length;
     	int width = matrix[0].length;
