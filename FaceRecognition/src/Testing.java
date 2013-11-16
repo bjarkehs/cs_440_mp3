@@ -155,6 +155,25 @@ public class Testing {
 		}
 		System.out.println();
 	}
+	
+	public double[][] getOddsRatioMatrix(int label1, int label2) {
+		Face f1 = training.trainingData.get(label1);
+		Face f2 = training.trainingData.get(label2);
+		
+		double[][] returnMatrix = new double[70][60];
+		double ff1;
+		double ff2;
+		double result;
+		for (int i = 0; i < 70; i++) {
+			for (int j = 0; j < 60; j++) {
+				ff1 = getProbabilityOfFeature(f1.feature[i][j], f1.samples);
+				ff2 = getProbabilityOfFeature(f2.feature[i][j], f2.samples);
+				result = ff1 - ff2;
+				returnMatrix[i][j] = result;
+			}
+		}
+		return returnMatrix;
+	}
 
 	
 	public void getOddsRatio(int label1, int label2) {
