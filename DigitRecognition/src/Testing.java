@@ -111,8 +111,8 @@ public class Testing {
 			totalCorrect += eachCorrect;
 			eachCorrect = ((double)eachCorrect/(double)d.tests)*100;
 			System.out.println("Classification rate for "+d.label+" is: "+eachCorrect+"%");
-			//System.out.println("Test example with highest posterior probability is:");
-			//d.printHighestImage();
+			System.out.println("Test example with highest posterior probability is:");
+			d.printHighestImage();
 			System.out.println();
 		}
 		//System.out.println("Total tests: "+totalTests);
@@ -146,8 +146,8 @@ public class Testing {
 	public void calculateConfusionMatrix() {
 		for (int r = 0; r < 10; r++) {
 			//int t = 0;
+			Digit d = training.trainingData.get(r);
 			for (int c = 0; c < 10; c++) {
-				Digit d = training.trainingData.get(c);
 				confusionMatrix[r][c] = ((double)hitMatrix[r][c]/(double)d.tests)*100;
 				//t += hitMatrix[r][c];
 			}
