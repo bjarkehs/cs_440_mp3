@@ -58,6 +58,11 @@ public class Testing {
 					if (d.label == maxDigitLabel) {
 						d.correctTests++;
 					}
+//					else {
+//						//Comment this else block to stop printing incorrect classifications
+//						System.out.println("Incorrect classification of "+d.label+" as "+maxDigitLabel);
+//						printDigit(testImage);
+//					}
 					hitMatrix[d.label][maxDigitLabel]++;
 				}
 			}
@@ -110,6 +115,15 @@ public class Testing {
 		System.out.println();
 		System.out.println("Confusion matrix is:");
 		printMatrix(confusionMatrix);
+	}
+	
+	public void printDigit(int[][] image) {
+		for (int i = 0; i < 28; i++) {
+			for (int m = 0; m < 28; m++) {
+				System.out.print(image[i][m]);
+			}
+			System.out.println();
+		}
 	}
 	
 	public void printMatrix(double[][] matrix) {
