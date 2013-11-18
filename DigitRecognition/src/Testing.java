@@ -18,7 +18,6 @@ public class Testing {
 	}
 	
 	public boolean testData() {
-
 		try {
 			File imgFile = new File("digitdata"+File.separator+"testimages");
 			BufferedReader imgInput = new BufferedReader(new FileReader(imgFile));
@@ -76,7 +75,7 @@ public class Testing {
 		// log P(class) + log P(f1,1|class) + ...
 		Digit d = training.trainingData.get(label);
 		double total = 0;
-		total += getProbabilityOfFeature(d.samples,training.totalSamples); //Comment this line to get ML classification
+		//total += getProbabilityOfFeature(d.samples,training.totalSamples); //Comment this line to get ML classification
 		for (int i = 0; i < 28; i++) {
 			for (int j = 0; j < 28; j++) {
 				int numberOfOccurences = d.feature[i][j];
@@ -93,20 +92,10 @@ public class Testing {
 		return Math.log((a+k)/(b*k));
 	}
 	
-//	public void printDigit(int[][] image) {
-//		for (int i = 0; i < 28; i++) {
-//			for (int m = 0; m < 28; m++) {
-//				System.out.print(image[i][m]);
-//			}
-//			System.out.println();
-//		}
-//	}
-	
 	public void printResults() {
 		double totalCorrect = 0;
 		double eachCorrect;
 		for (Digit d : training.trainingData) {
-			//System.out.println("tests for "+d.label+" :"+d.tests);
 			eachCorrect = d.correctTests;
 			totalCorrect += eachCorrect;
 			eachCorrect = ((double)eachCorrect/(double)d.tests)*100;
@@ -115,7 +104,6 @@ public class Testing {
 			d.printHighestImage();
 			System.out.println();
 		}
-		//System.out.println("Total tests: "+totalTests);
 		totalCorrect = ((double)totalCorrect/(double)totalTests)*100;
 		System.out.println("Total performance is: "+totalCorrect+"%");
 		
@@ -145,13 +133,10 @@ public class Testing {
 	
 	public void calculateConfusionMatrix() {
 		for (int r = 0; r < 10; r++) {
-			//int t = 0;
 			Digit d = training.trainingData.get(r);
 			for (int c = 0; c < 10; c++) {
 				confusionMatrix[r][c] = ((double)hitMatrix[r][c]/(double)d.tests)*100;
-				//t += hitMatrix[r][c];
 			}
-			//System.out.println("For digit "+r+" total tests: "+t);
 		}
 		System.out.println();
 	}
@@ -167,7 +152,6 @@ public class Testing {
 				double df1 = getProbabilityOfFeature(d1.feature[i][j], d1.samples);
 				double df2 = getProbabilityOfFeature(d2.feature[i][j], d2.samples);
 				double result = df1 - df2;
-				//System.out.println(result);
 				char print;
 				if (result > 0.9 && result < 1.1) {
 					print = '+';

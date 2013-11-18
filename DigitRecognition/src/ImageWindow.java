@@ -28,18 +28,7 @@ public class ImageWindow {
             for(int j = 0; j < width; j++) {
                 double tmp = matrix[i][j];
                 double alpha = (max - tmp) / (max - min);
-
-//                g.setColor(Color.getHSBColor((float) (1-alpha), 0.8f, 0.8f));
                 g.setColor(new Color((float) (1-alpha), 0, (float)alpha));
-//                if (alpha <= 0.33) {
-//                	g.setColor(new Color(v, 0, 0));
-//                }
-//                else if (c > 0.33 && c <= 0.66){
-//                	g.setColor(new Color(0, v, 0));
-//                }
-//                else {
-//                	g.setColor(new Color(0, 0, v));
-//                }
                 g.fillRect(j, i, 1, 1);
             }
         }
@@ -47,23 +36,18 @@ public class ImageWindow {
         JFrame frame = new JFrame("Image");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         JPanel panel = new JPanel() {
-
-			/**
-			 * 
-			 */
-			private static final long serialVersionUID = 1L;
-
+        	private static final long serialVersionUID = 1L;
 			@Override
-            protected void paintComponent(Graphics g) {
-                Graphics2D g2d = (Graphics2D)g;
-                g2d.clearRect(0, 0, getWidth(), getHeight());
-                g2d.setRenderingHint(
-                        RenderingHints.KEY_INTERPOLATION,
-                        RenderingHints.VALUE_INTERPOLATION_BILINEAR);
-                        // Or _BICUBIC
-                g2d.scale(10, 10);
-                g2d.drawImage(img, 0, 0, this);
-            }
+	        protected void paintComponent(Graphics g) {
+	            Graphics2D g2d = (Graphics2D)g;
+	            g2d.clearRect(0, 0, getWidth(), getHeight());
+	            g2d.setRenderingHint(
+	                    RenderingHints.KEY_INTERPOLATION,
+	                    RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+	                    // Or _BICUBIC
+	            g2d.scale(10, 10);
+	            g2d.drawImage(img, 0, 0, this);
+	        }
         };
         panel.setPreferredSize(new Dimension(width*10, height*10));
         frame.getContentPane().add(panel);
