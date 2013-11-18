@@ -75,7 +75,7 @@ public class Testing {
 		// log P(class) + log P(f1,1|class) + ...
 		Digit d = training.trainingData.get(label);
 		double total = 0;
-		//total += getProbabilityOfFeature(d.samples,training.totalSamples); //Comment this line to get ML classification
+		total += getProbabilityOfFeature(d.samples,training.totalSamples); //Comment this line to get ML classification
 		for (int i = 0; i < 28; i++) {
 			for (int j = 0; j < 28; j++) {
 				int numberOfOccurences = d.feature[i][j];
