@@ -228,7 +228,7 @@ public class Testing {
 	public double[][] getLikelyhood(int label) {
 		Face f = training.trainingData.get(label);
 		
-		double[][] returnMatrix = new double[28][28];
+		double[][] returnMatrix = new double[70][60];
 		double feature;
 		double white;
 		double result;
