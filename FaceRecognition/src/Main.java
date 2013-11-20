@@ -12,6 +12,8 @@ public class Main {
 		te.testData();
 		te.printResults();
 		
+		i.printImage(te.getLikelyhood(0));
+		i.printImage(te.getLikelyhood(1));
 		i.printImage(te.getOddsRatio(0,1));
 //		te.printLikelyhood(0);
 //		te.printLikelyhood(1);

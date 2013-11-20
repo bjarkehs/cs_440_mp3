@@ -93,15 +93,6 @@ public class Testing {
 		return Math.log((a+k)/(b*k));
 	}
 	
-//	public void printDigit(int[][] image) {
-//		for (int i = 0; i < 28; i++) {
-//			for (int m = 0; m < 28; m++) {
-//				System.out.print(image[i][m]);
-//			}
-//			System.out.println();
-//		}
-//	}
-	
 	public void printResults() {
 		double totalCorrect = 0;
 		double eachCorrect;

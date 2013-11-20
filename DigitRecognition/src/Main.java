@@ -11,14 +11,13 @@ public class Main {
 		te.printResults();
 		
 		ImageWindow i = new ImageWindow();
-		i.printImage(te.getLikelyhood(1));
-		i.printImage(te.getLikelyhood(8));
-		i.printImage(te.getOddsRatio(1, 8));
-//		te.printLikelyhood(4);
-//		te.printLikelyhood(9);
-//		te.printOddsRatio(4,9);
+		i.printImage(te.getLikelyhood(4));
+		i.printImage(te.getLikelyhood(9));
+		i.printImage(te.getOddsRatio(4,9));
+		te.printLikelyhood(4);
+		te.printLikelyhood(9);
+		te.printOddsRatio(4,9);
 		
 		System.out.println("DONE");
 	}
-
 }
