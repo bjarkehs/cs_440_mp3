@@ -17,7 +17,7 @@ public class Main {
 		i.printImage(te.getOddsRatio(0,1));
 //		te.printLikelyhood(0);
 //		te.printLikelyhood(1);
-//		te.printOddsRatio(0,1);
+		te.printOddsRatio(0,1);
 		
 		System.out.println("DONE");
 	}

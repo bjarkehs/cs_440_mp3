@@ -8,7 +8,7 @@ public class Testing {
 	public int[][] hitMatrix;
 	public double[][] confusionMatrix;
 	public Training training;
-	private int k = 1;
+	private int k = 10;
 	
 	public Testing(Training t) {
 		training = t;
@@ -59,6 +59,11 @@ public class Testing {
 					if (f.label == maxFaceLabel) {
 						f.correctTests++;
 					}
+//					else {
+//						//Comment this else block to stop printing incorrect classifications
+//						System.out.println("Incorrect classification of "+f.label+" as "+maxFaceLabel);
+//						printFace(testImage);
+//					}
 					hitMatrix[f.label][maxFaceLabel]++;
 				}
 			}
@@ -76,7 +81,7 @@ public class Testing {
 		// log P(class) + log P(f1,1|class) + ...
 		Face f = training.trainingData.get(label);
 		double total = 0;
-		total += getProbabilityOfFeature(f.samples, training.totalSamples);
+//		total += getProbabilityOfFeature(f.samples, training.totalSamples);
 		for (int i = 0; i < 70; i++) {
 			for (int j = 0; j < 60; j++) {
 				int numberOfOccurences = f.feature[i][j];
@@ -113,6 +118,15 @@ public class Testing {
 		System.out.println();
 		System.out.println("Confusion matrix is:");
 		printMatrix(confusionMatrix);
+	}
+	
+	public void printFace(int[][] image) {
+		for (int i = 0; i < 70; i++) {
+			for (int m = 0; m < 60; m++) {
+				System.out.print(image[i][m]);
+			}
+			System.out.println();
+		}
 	}
 	
 	public void printMatrix(double[][] matrix) {
